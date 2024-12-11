@@ -114,7 +114,7 @@ int rendreDivisiblePar3(int n)
 }
 
 // Convertit un entier en texte en utilisant des tableaux TableauLettre et T ;
-void convertir_nbre_1(char *str)
+void convertir_nbre_1(char *str, int option)
 {
     if (strlen(str) > 12)
     {
@@ -146,7 +146,18 @@ void convertir_nbre_1(char *str)
         {
             continue; // Ignore les groupes contenant uniquement des zéros
         }
-        printf(" %s %s", TableauLettre[index_str], TableauUnite[len_str_partie]); // Affiche la conversion
+        if (!option)
+        {
+            printf(" %s %s", TableauLettre[index_str], TableauUnite[len_str_partie]); // Affiche la conversion
+        }
+        else
+        {
+            FILE *p = fopen("NBRS.txt", "r");
+            char str[100];
+            fseek(p, FILE__getindexStr(index_str), SEEK_SET);
+            fgets(str, 99, p);
+            printf(" %s %s", str, TableauUnite[len_str_partie]); // Affiche la conversion
+        }
     }
 }
 
@@ -218,7 +229,7 @@ int estReel(char *str, char entier[], char reel[])
 }
 
 // Convertit un nombre réel ou négatif en texte
-void convertir_nbre_2(char *str)
+void convertir_nbre_2(char *str,int option)
 {
     char entier[12], reel[12];
     int estNegati = 0;
@@ -256,7 +267,7 @@ void convertir_nbre_2(char *str)
     // Cas : pas de partie décimale
     if (!strcmp("", reel))
     {
-        convertir_nbre_1(entier);
+        convertir_nbre_1(entier, option);
         return;
     }
 
@@ -267,7 +278,7 @@ void convertir_nbre_2(char *str)
         if (!estZero(reel))
         {
             printf(" virgule");
-            convertir_nbre_1(reel);
+            convertir_nbre_1(reel, option);
         }
         return;
     }
@@ -280,8 +291,8 @@ void convertir_nbre_2(char *str)
     }
 
     // Conversion de la partie entière
-    convertir_nbre_1(entier);
+    convertir_nbre_1(entier, option);
     printf("virgule");
     // Conversion de la partie décimale
-    convertir_nbre_1(reel);
+    convertir_nbre_1(reel, option);
 }
