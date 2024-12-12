@@ -287,7 +287,7 @@ void convertir_nbre_2(char *str, int option)
         if (!estZero(reel))
         {
             printf(" virgule");
-            ZeroDebut(str);
+            ZeroDebut(reel);
             convertir_nbre_1(reel, option);
         }
         return;
