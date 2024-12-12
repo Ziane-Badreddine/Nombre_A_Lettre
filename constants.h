@@ -5,18 +5,3 @@ const char *TableauLettre[1000] = {
 // Tableau de unités
 const char *TableauUnite[5] = {"", "", "mille", "millions", "milliards"};
 
-int FILE__getindexStr(int index)
-{
-    FILE *p = fopen("NBRS.txt", "r");
-    for (int i = 1; i < index; i++)
-    {
-        while (fgetc(p)!='\n')
-        {
-            fseek(p,1,SEEK_CUR);
-        }
-        
-    }
-    int pos = ftell(p);
-    fclose(p);
-    return pos;
-}

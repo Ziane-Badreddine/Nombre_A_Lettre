@@ -113,6 +113,21 @@ int rendreDivisiblePar3(int n)
     return n + (3 - n % 3); // Ajoute le complément pour atteindre un multiple de 3
 }
 
+int FILE__getindexStr(int index)
+{
+    FILE *p = fopen("NBRS.txt", "r");
+    for (int i = 1; i < index; i++)
+    {
+        while (fgetc(p) != '\n')
+        {
+            fseek(p, 1, SEEK_CUR);
+        }
+    }
+    int pos = ftell(p);
+    fclose(p);
+    return pos;
+}
+
 // Convertit un entier en texte en utilisant des tableaux TableauLettre et T ;
 void convertir_nbre_1(char *str, int option)
 {
@@ -134,7 +149,7 @@ void convertir_nbre_1(char *str, int option)
 
     if (atoi(strtemp) == 0)
     {
-        printf(" %s", TableauLettre[0]); // Traite le cas du zéro
+        printf("%s ", TableauLettre[0]); // Traite le cas du zéro
         return;
     }
 
@@ -148,15 +163,21 @@ void convertir_nbre_1(char *str, int option)
         }
         if (!option)
         {
-            printf(" %s %s", TableauLettre[index_str], TableauUnite[len_str_partie]); // Affiche la conversion
+            printf("%s %s ", TableauLettre[index_str], TableauUnite[len_str_partie]); // Affiche la conversion
         }
         else
         {
             FILE *p = fopen("NBRS.txt", "r");
             char str[100];
             fseek(p, FILE__getindexStr(index_str), SEEK_SET);
-            fgets(str, 99, p);
-            printf(" %s %s", str, TableauUnite[len_str_partie]); // Affiche la conversion
+            int i = 0;
+            while (fgetc(p) != '\n')
+            {
+                i++;
+            }
+            fseek(p, FILE__getindexStr(index_str), SEEK_SET);
+            fgets(str,i + 1 ,p);
+            printf("%s %s ", str, TableauUnite[len_str_partie]); // Affiche la conversion
         }
     }
 }
@@ -175,12 +196,13 @@ int estZero(char *str)
     return 1; // Tous les caractères sont des zéros
 }
 
+// ajouter des zero au debut
 void ZeroDebut(char *str)
 {
     int len_str = strlen(str), count_zero = 0;
     for (int i = 0; i < len_str && str[i] == '0'; i++)
     {
-       printf(" zero");
+        printf("zero ");
     }
 }
 
@@ -269,7 +291,7 @@ void convertir_nbre_2(char *str, int option)
     {
         if (!estZero(entier))
         {
-            printf("moins");
+            printf("moins ");
         }
     }
 
@@ -283,10 +305,10 @@ void convertir_nbre_2(char *str, int option)
     // Cas : pas de partie entière
     if (!strcmp("", entier))
     {
-        printf("zero");
+        printf("zero ");
         if (!estZero(reel))
         {
-            printf(" virgule");
+            printf("virgule ");
             ZeroDebut(reel);
             convertir_nbre_1(reel, option);
         }
@@ -302,7 +324,7 @@ void convertir_nbre_2(char *str, int option)
 
     // Conversion de la partie entière
     convertir_nbre_1(entier, option);
-    printf("virgule");
+    printf("virgule ");
     ZeroDebut(reel);
     // Conversion de la partie décimale
     convertir_nbre_1(reel, option);

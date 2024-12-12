@@ -7,7 +7,7 @@ six
 sept
 huit
 neuf
-dix-
+dix
 onze
 douze
 treize
