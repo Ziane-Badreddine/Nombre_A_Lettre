@@ -161,7 +161,7 @@ void convertir_nbre_1(char *str, int option)
     }
 }
 
-// Vérifie si une chaîne contient uniquement des zéros
+// envoi le nombre de zero dans le string
 int estZero(char *str)
 {
     int len_str = strlen(str);
@@ -173,6 +173,15 @@ int estZero(char *str)
         }
     }
     return 1; // Tous les caractères sont des zéros
+}
+
+void ZeroDebut(char *str)
+{
+    int len_str = strlen(str), count_zero = 0;
+    for (int i = 0; i < len_str && str[i] == '0'; i++)
+    {
+       printf(" zero");
+    }
 }
 
 // Vérifie si une chaîne représente un nombre réel et sépare les parties entière et décimale
@@ -229,7 +238,7 @@ int estReel(char *str, char entier[], char reel[])
 }
 
 // Convertit un nombre réel ou négatif en texte
-void convertir_nbre_2(char *str,int option)
+void convertir_nbre_2(char *str, int option)
 {
     char entier[12], reel[12];
     int estNegati = 0;
@@ -278,6 +287,7 @@ void convertir_nbre_2(char *str,int option)
         if (!estZero(reel))
         {
             printf(" virgule");
+            ZeroDebut(str);
             convertir_nbre_1(reel, option);
         }
         return;
@@ -293,6 +303,7 @@ void convertir_nbre_2(char *str,int option)
     // Conversion de la partie entière
     convertir_nbre_1(entier, option);
     printf("virgule");
+    ZeroDebut(reel);
     // Conversion de la partie décimale
     convertir_nbre_1(reel, option);
 }

@@ -22,21 +22,23 @@ int main()
             scanf("%s", str);
             getchar();
             printf("%s => ", str);
-            convertir_nbre_1(str,0);
+            convertir_nbre_1(str, 0);
             break;
         case 2:
             printf("Enter un nombre reel ");
             scanf("%s", str);
             getchar();
             printf("%s => ", str);
-            convertir_nbre_2(str,0);
+            convertir_nbre_2(str, 0);
             break;
         case 3:
             printf("Enter un nombre entier :  ");
             scanf("%s", str);
             getchar();
             printf("%s => ", str);
-            convertir_nbre_2(str,1);
+            convertir_nbre_2(str, 1);
+            break;
+        case 4:
             break;
         default:
             printf("quelque chose est mal ressayer");
@@ -44,5 +46,5 @@ int main()
         }
     } while (choix != 4);
     return 0;
-     
+    //printf("%d",estZero("0000"));
 }
