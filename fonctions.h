@@ -176,7 +176,7 @@ void convertir_nbre_1(char *str, int option)
                 i++;
             }
             fseek(p, FILE__getindexStr(index_str), SEEK_SET);
-            fgets(str,i + 1 ,p);
+            fgets(str, i + 1, p);
             printf("%s %s ", str, TableauUnite[len_str_partie]); // Affiche la conversion
         }
     }
@@ -206,6 +206,17 @@ void ZeroDebut(char *str)
     }
 }
 
+// elimene le zero apres le virgule
+char *elimineZeroAuFin(char *str)
+{
+    int len_str = strlen(str);
+    int i;
+    for (i = len_str - 1; i >= 0 && str[i] == '0'; i--)
+    {
+    }
+    return extraireSousChaine(str, 0, i);
+}
+
 // Vérifie si une chaîne représente un nombre réel et sépare les parties entière et décimale
 int estReel(char *str, char entier[], char reel[])
 {
@@ -229,7 +240,7 @@ int estReel(char *str, char entier[], char reel[])
 
     // Extrait les parties entière et décimale
     char *str_entier = extraireSousChaine(str, 0, index_vircule - 1);
-    char *str_float = extraireSousChaine(str, index_vircule + 1, len_str - 1);
+    char *str_float = elimineZeroAuFin(extraireSousChaine(str, index_vircule + 1, len_str - 1));
 
     // Gère les cas où une des parties est vide
     if (str_entier == NULL && str_float == NULL)
@@ -289,7 +300,7 @@ void convertir_nbre_2(char *str, int option)
     // Gestion des cas négatifs
     if (estNegati)
     {
-        if (!estZero(entier))
+        if (!(estZero(entier) && estZero(reel)))
         {
             printf("moins ");
         }
@@ -327,5 +338,6 @@ void convertir_nbre_2(char *str, int option)
     printf("virgule ");
     ZeroDebut(reel);
     // Conversion de la partie décimale
+
     convertir_nbre_1(reel, option);
 }

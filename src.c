@@ -47,4 +47,5 @@ int main()
     } while (choix != 4);
     return 0;
     //printf("%d",estZero("0000"));
+    
 }
