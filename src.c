@@ -2,6 +2,6 @@
 
 int main()
 {
-    convertir_nbre_2("12.201010",1);
+    convertir_nbre_2("2425",0);
     return 0;
 }

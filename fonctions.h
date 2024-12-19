@@ -209,6 +209,10 @@ void ZeroDebut(char *str)
 // elimene le zero apres le virgule
 char *elimineZeroAuFin(char *str)
 {
+    if(str == NULL)
+    {
+        return NULL;
+    }
     int len_str = strlen(str);
     int i;
     for (i = len_str - 1; i >= 0 && str[i] == '0'; i--)
@@ -239,7 +243,7 @@ int estReel(char *str, char entier[], char reel[])
     }
 
     // Extrait les parties entière et décimale
-    char *str_entier = extraireSousChaine(str, 0, index_vircule - 1);
+    char *str_entier = extraireSousChaine(str, 0, index_vircule -1);
     char *str_float = elimineZeroAuFin(extraireSousChaine(str, index_vircule + 1, len_str - 1));
 
     // Gère les cas où une des parties est vide
@@ -253,6 +257,7 @@ int estReel(char *str, char entier[], char reel[])
         strcpy(entier, "");
         return 1;
     }
+    
     if (str_float == NULL)
     {
         strcpy(entier, str_entier);
@@ -281,6 +286,7 @@ void convertir_nbre_2(char *str, int option)
     {
         ++str; // Ignore le signe '-'
         estNegati++;
+        
     }
 
     // Vérifie si la chaîne est un nombre réel valide
@@ -289,6 +295,7 @@ void convertir_nbre_2(char *str, int option)
         printf("le string n'est pas un nombre ;");
         return;
     }
+
 
     // Vérifie la longueur des parties entière et décimale
     if (strlen(entier) > 12 || strlen(reel) > 12)
